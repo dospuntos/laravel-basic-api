@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\Post;
+use App\Http\Controllers\PostController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/testing', function () {
-    return ['message' => 'hello'];
+Route::get('/blah', function () {
+    $post = Post::find(2);
+
+    $post->update(['title' => 'my newest title']);
+
+    return $post;
 });
+
+Route::resource('posts', PostController::class);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
